@@ -34,10 +34,12 @@ export default function RootLayout({
         </header>
 
         {/* area content */}
-        {children}
+        <main className="m-10">
+          {children}
+        </main>
 
         {/* area footer */}
-        <footer>
+        <footer className="text-center">
           Copyright &copy; 2025 - IF 22 DX
         </footer>
       </body>
