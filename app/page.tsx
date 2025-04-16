@@ -34,7 +34,7 @@ const { data, error, isLoading } = useSWR(
             {/* row */}
             {/* mulai looping "map" */}
             {data?.data_user.map((item: any) => (
-            <tr className="hover:bg-teal-100">
+            <tr className="hover:bg-teal-100" key={item.id}>
               <td className="text-center">-</td>
               <td className="text-left">{item.nama}</td>
               <td className="text-center">{item.username}</td>
