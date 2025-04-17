@@ -3,6 +3,7 @@ import { faPencil, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import useSWR from "swr";
+import styles from './styles.module.css'
 
 // buat variable fetcher
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -25,12 +26,12 @@ const { data, error, isLoading } = useSWR(
       <section className="overflow-x-auto">
         <table className="table">
           {/* head */}
-          <thead>
-            <tr>
-              <th className="text-center">Aksi</th>
-              <th className="text-center">Nama</th>
-              <th className="text-center">Username</th>
-              <th className="text-center">Password</th>
+          <thead> 
+            <tr className={styles["background-tr"]}>
+              <th className="text-center w-1/5">Aksi</th>
+              <th className="text-center w-2/5">Nama</th>
+              <th className="text-center w-1/5">Username</th>
+              <th className="text-center w-1/5">Password</th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +43,7 @@ const { data, error, isLoading } = useSWR(
                 <Link href={"/"}>
                   <FontAwesomeIcon icon={faPencil} title="Ubah Data" />
                 </Link>
+
                 <Link href={"/"}>
                   <FontAwesomeIcon icon={faTrash} title="Hapus Data" />
                 </Link>
