@@ -23,7 +23,7 @@ const { data, error, isLoading } = useSWR(
       </section>
 
       {/* buat tabel */}
-      <section className="overflow-x-auto">
+      <section className="overflow-x-auto mt-5">
         <table className="table">
           {/* head */}
           <thead> 
@@ -38,19 +38,23 @@ const { data, error, isLoading } = useSWR(
             {/* row */}
             {/* mulai looping "map" */}
             {data?.data_user.map((item: any) => (
-            <tr className="hover:bg-teal-100" key={item.id}>
+            <tr className="hover:bg-gray-100" key={item.id}>
               <td className="text-center">
                 <Link href={"/"}>
-                  <FontAwesomeIcon icon={faPencil} title="Ubah Data" />
+                  <FontAwesomeIcon icon={faPencil} title="Ubah Data" className={styles["frame-button-edit"]} />
                 </Link>
 
                 <Link href={"/"}>
-                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" />
+                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]}/>
                 </Link>
               </td>
               <td className="text-left">{item.nama}</td>
               <td className="text-center">{item.username}</td>
-              <td className="text-center">{item.password}</td>
+              <td className="text-center">
+                  <div className={styles["text-ellipsis"]}>
+                  {item.password}
+                  </div>
+              </td>
             </tr>
             ))}
 
