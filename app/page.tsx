@@ -1,4 +1,6 @@
 'use client'
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useSWR from "swr";
 
 // buat variable fetcher
@@ -15,7 +17,7 @@ const { data, error, isLoading } = useSWR(
     <div>
       {/* buat tombol Tambah Data */}
       <section className="text-right">
-        <button className="btn btn-soft btn-success">Tambah Data</button>
+        <button className="btn btn-soft btn-success"><FontAwesomeIcon icon={faPlus}/> Tambah Data</button>
       </section>
 
       {/* buat tabel */}
