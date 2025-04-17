@@ -1,6 +1,7 @@
 'use client'
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import useSWR from "swr";
 
 // buat variable fetcher
@@ -37,7 +38,14 @@ const { data, error, isLoading } = useSWR(
             {/* mulai looping "map" */}
             {data?.data_user.map((item: any) => (
             <tr className="hover:bg-teal-100" key={item.id}>
-              <td className="text-center">-</td>
+              <td className="text-center">
+                <Link href={"/"}>
+                  <FontAwesomeIcon icon={faPencil} title="Ubah Data" />
+                </Link>
+                <Link href={"/"}>
+                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" />
+                </Link>
+              </td>
               <td className="text-left">{item.nama}</td>
               <td className="text-center">{item.username}</td>
               <td className="text-center">{item.password}</td>
