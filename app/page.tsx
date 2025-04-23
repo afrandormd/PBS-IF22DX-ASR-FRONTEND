@@ -39,7 +39,7 @@ const { data, error, isLoading } = useSWR(
             {/* mulai looping "map" */}
             {data?.metaData.error === 1 ? 
             <tr>
-              <td colSpan={4}>
+              <td colSpan={4} className="text-center">
                 {data?.metaData.message}
               </td>
             </tr>
