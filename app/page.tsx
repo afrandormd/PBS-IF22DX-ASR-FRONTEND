@@ -37,7 +37,14 @@ const { data, error, isLoading } = useSWR(
           <tbody>
             {/* row */}
             {/* mulai looping "map" */}
-            {data?.data_user.map((item: any) => (
+            {data?.metaData.error === 1 ? 
+            <tr>
+              <td colSpan={4}>
+                {data?.metaData.message}
+              </td>
+            </tr>
+            :
+            data?.data_user.map((item: any) => (
             <tr className="hover:bg-gray-100" key={item.id}>
               <td className="text-center">
                 <Link href={"/"}>
