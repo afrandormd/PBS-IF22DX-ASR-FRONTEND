@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import useSWR from "swr";
 import styles from './styles.module.css'
+import axios from "axios";
 
 // buat variable fetcher
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -14,6 +15,12 @@ const { data, error, isLoading } = useSWR(
     "http://localhost:3001/api/user",
     fetcher
   );
+
+  // buat fungsi untuk "hapus data"
+  const setDelete = async(id: string) => {
+    const response = await axios.delete(`http://localhost:3001/api/user/${id}`)
+    return response
+  }
 
   return (
     <div>
@@ -51,8 +58,9 @@ const { data, error, isLoading } = useSWR(
                   <FontAwesomeIcon icon={faPencil} title="Ubah Data" className={styles["frame-button-edit"]} />
                 </Link>
 
+                {/* Tombol Hapus Data */}
                 <Link href={"/"}>
-                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]}/>
+                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]} onClick={(e) => {setDelete}}/>
                 </Link>
               </td>
               <td className="text-left">{item.nama}</td>
