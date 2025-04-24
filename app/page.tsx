@@ -5,23 +5,40 @@ import Link from "next/link";
 import useSWR from "swr";
 import styles from './styles.module.css'
 import axios from "axios";
+import { useRef, useState } from "react";
 
 // buat variable fetcher
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
+  // buat hook "useRef"
+  const modalRef = useRef<HTMLDialogElement>(null)
+  const modalContentRef = useRef<HTMLParagraphElement>(null)
+  
+  // buat hook "useState"
+  const [idUser, setIdUser] = useState("");
+
   // buat variable untuk SWR
-const { data, error, isLoading, mutate } = useSWR(
-    "http://localhost:3001/api/user",
-    fetcher
-  );
+  const { data, error, isLoading, mutate } = useSWR(
+      "http://localhost:3001/api/user",
+      fetcher
+    );
+
+  // buat fungsi untuk buka "modal"
+  const openModal = (id: string, nama: string) => {
+    modalRef.current?.showModal()
+    modalContentRef.current!.innerHTML = `Data User <strong>${nama}</strong> Ingin Dihapus ?`;
+
+  // simpan state "setIdUser"
+  setIdUser(id)
+  };
 
   // buat fungsi untuk "hapus data"
   const setDelete = async(id: string) => {
     const response = await axios.delete(`http://localhost:3001/api/user/${id}`)
     mutate(data)
     return response
-  }
+  };
 
   return (
     <div>
@@ -61,7 +78,7 @@ const { data, error, isLoading, mutate } = useSWR(
 
                 {/* Tombol Hapus Data */}
                 <Link href={"/"}>
-                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]} onClick={() => {setDelete(item.id)}}/>
+                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]} onClick={() => openModal(item.id, item.nama)}/>
                 </Link>
               </td>
               <td className="text-left">{item.nama}</td>
@@ -79,6 +96,21 @@ const { data, error, isLoading, mutate } = useSWR(
           </tbody>
         </table>
       </section>
+
+      {/* buat modal */}
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Informasi</h3>
+          <p className="py-4" ref={modalContentRef}></p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal  */}
+              <button className="btn mr-1.5 w-25 btn-error text-white" onClick={() => {setDelete(idUser)}}>Ya</button>
+              <button className="btn ml-1.5 w-25">Tidak</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }
