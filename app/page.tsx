@@ -11,7 +11,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
   // buat variable untuk SWR
-const { data, error, isLoading } = useSWR(
+const { data, error, isLoading, mutate } = useSWR(
     "http://localhost:3001/api/user",
     fetcher
   );
@@ -19,6 +19,7 @@ const { data, error, isLoading } = useSWR(
   // buat fungsi untuk "hapus data"
   const setDelete = async(id: string) => {
     const response = await axios.delete(`http://localhost:3001/api/user/${id}`)
+    mutate(data)
     return response
   }
 
@@ -60,7 +61,7 @@ const { data, error, isLoading } = useSWR(
 
                 {/* Tombol Hapus Data */}
                 <Link href={"/"}>
-                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]} onClick={(e) => {setDelete}}/>
+                  <FontAwesomeIcon icon={faTrash} title="Hapus Data" className={styles["frame-button-delete"]} onClick={() => {setDelete(item.id)}}/>
                 </Link>
               </td>
               <td className="text-left">{item.nama}</td>
