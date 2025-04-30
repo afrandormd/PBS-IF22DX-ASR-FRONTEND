@@ -19,7 +19,6 @@ export default function Home() {
   const [idUser, setIdUser] = useState("");
   const [toastMessage, setToastMessage] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
-  // const [toastInterval, setToastInterval] = useState(0);
 
   // buat hook "useEffect"
   useEffect(() => {
@@ -27,6 +26,9 @@ export default function Home() {
   const timer = setInterval(() => {
       setToastVisible(false)
     }, 10000) 
+
+    // kembalikan nilai interval ke awal (reset)
+    return () => clearInterval(timer)
 
   }, [toastVisible])
     
