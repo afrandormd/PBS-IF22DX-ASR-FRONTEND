@@ -5,7 +5,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import styles from './styles.module.css'
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // buat variable fetcher
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -18,6 +18,18 @@ export default function Home() {
   // buat hook "useState"
   const [idUser, setIdUser] = useState("");
   const [toastMessage, setToastMessage] = useState("");
+  const [toastVisible, setToastVisible] = useState(false);
+  // const [toastInterval, setToastInterval] = useState(0);
+
+  // buat hook "useEffect"
+  useEffect(() => {
+  // setting toast tampil selama 3 detik
+  const timer = setInterval(() => {
+      setToastVisible(false)
+    }, 10000) 
+
+  }, [toastVisible])
+    
 
 
   // buat variable untuk SWR
@@ -40,6 +52,7 @@ export default function Home() {
     const response = await axios.delete(`http://localhost:3001/api/user/${id}`)
     mutate(data)
     // return alert(response.data.metaData.message)
+    setToastVisible(true)
     setToastMessage(response.data.metaData.message)
   };
 
@@ -99,12 +112,15 @@ export default function Home() {
           </tbody>
         </table>
       </section>
+
       {/* buat toast */}
+      {toastVisible && // implementasi dari if tunggal di jsx
       <div className="toast toast-top toast-end">
         <div className="alert alert-info">
           <span>{toastMessage}</span>
         </div>
       </div>
+      }
 
       {/* buat modal */}
       <dialog ref={modalRef} className="modal">
