@@ -37,7 +37,7 @@ export default function Home() {
   const setDelete = async(id: string) => {
     const response = await axios.delete(`http://localhost:3001/api/user/${id}`)
     mutate(data)
-    return response
+    return alert(response.data.metaData.message)
   };
 
   return (
@@ -96,6 +96,15 @@ export default function Home() {
           </tbody>
         </table>
       </section>
+      {/* buat toast */}
+      <div className="toast toast-top toast-end">
+        <div className="alert alert-info">
+          <span>New mail arrived.</span>
+        </div>
+        <div className="alert alert-success">
+          <span>Message sent successfully.</span>
+        </div>
+      </div>
 
       {/* buat modal */}
       <dialog ref={modalRef} className="modal">
