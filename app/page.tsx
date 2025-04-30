@@ -17,6 +17,8 @@ export default function Home() {
   
   // buat hook "useState"
   const [idUser, setIdUser] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+
 
   // buat variable untuk SWR
   const { data, error, isLoading, mutate } = useSWR(
@@ -37,7 +39,8 @@ export default function Home() {
   const setDelete = async(id: string) => {
     const response = await axios.delete(`http://localhost:3001/api/user/${id}`)
     mutate(data)
-    return alert(response.data.metaData.message)
+    // return alert(response.data.metaData.message)
+    setToastMessage(response.data.metaData.message)
   };
 
   return (
@@ -99,10 +102,7 @@ export default function Home() {
       {/* buat toast */}
       <div className="toast toast-top toast-end">
         <div className="alert alert-info">
-          <span>New mail arrived.</span>
-        </div>
-        <div className="alert alert-success">
-          <span>Message sent successfully.</span>
+          <span>{toastMessage}</span>
         </div>
       </div>
 
