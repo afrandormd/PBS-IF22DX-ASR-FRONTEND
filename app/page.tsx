@@ -22,6 +22,8 @@ export default function Home() {
 
   // buat hook "useEffect"
   useEffect(() => {
+  document.title = "View Data User"
+
   // setting toast tampil selama 3 detik
   const timer = setInterval(() => {
       setToastVisible(false)
@@ -60,6 +62,9 @@ export default function Home() {
 
   return (
     <div>
+      {/* judul halaman */}
+      <title>View Data User</title>
+
       {/* buat tombol Tambah Data */}
       <section className="text-right">
         <Link href={"/add"} className="btn btn-soft btn-success"><FontAwesomeIcon icon={faPlus}/> Tambah Data</Link>
