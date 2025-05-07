@@ -62,7 +62,7 @@ export default function Home() {
     <div>
       {/* buat tombol Tambah Data */}
       <section className="text-right">
-        <button className="btn btn-soft btn-success"><FontAwesomeIcon icon={faPlus}/> Tambah Data</button>
+        <Link href={"/add"} className="btn btn-soft btn-success"><FontAwesomeIcon icon={faPlus}/> Tambah Data</Link>
       </section>
 
       {/* buat tabel */}
