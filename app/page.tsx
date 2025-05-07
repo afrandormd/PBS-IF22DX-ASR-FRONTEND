@@ -25,7 +25,7 @@ export default function Home() {
   // setting toast tampil selama 3 detik
   const timer = setInterval(() => {
       setToastVisible(false)
-    }, 10000) 
+    }, 3000) 
 
     // kembalikan nilai interval ke awal (reset)
     return () => clearInterval(timer)
