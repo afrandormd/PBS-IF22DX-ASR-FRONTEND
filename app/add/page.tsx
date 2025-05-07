@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function AddUser() {
   // buat hook "useState" untuk show/hide pesan error
@@ -8,11 +8,17 @@ export default function AddUser() {
   const [errorUsernameVisible, setErrorUsernameVisible] = useState(false);
   const [errorPasswordVisible, setErrorPasswordVisible] = useState(false);
 
+  // buat hook "useRef" untuk isi pesan error
+  const errorMessageNama = useRef<HTMLParagraphElement>(null)
+
   // buat hook "useEffect" untuk respon pesan error
   useEffect(() => {
-
+  if (errorMessageNama.current) {
+    errorMessageNama.current.innerHTML = "Nama User Harus Diisi!"
+    }
   }, [errorNamaVisible, errorUsernameVisible, errorPasswordVisible])
-  
+
+
 
   return (
     <div>
@@ -24,7 +30,7 @@ export default function AddUser() {
         <legend className="fieldset-legend">Nama User</legend>
         <input type="text" className="input" placeholder="Isi Nama User" />
         {errorNamaVisible &&
-          <p className="label text-red-600">Optional</p>
+          <p ref={errorMessageNama} className="label text-red-600"></p>
         }
       </fieldset>
 
