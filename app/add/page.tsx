@@ -38,19 +38,22 @@ export default function AddUser() {
   // buat fungsi untuk simpan data
   const setSave = () => {
     // jika "txt_nama" tidak diisi
-    dataNama.current!.value == "" ?  
-    setErrorNamaVisible(true) :
-    setErrorNamaVisible(false)
+    dataNama.current!.value == ""   
+    ? setErrorNamaVisible(true)
+    // jika "txt_nama" diisi
+    : setErrorNamaVisible(false)
 
     // jika "txt_username" tidak diisi
-    dataUsername.current!.value == "" ?  
-    setErrorUsernameVisible(true) :
-    setErrorUsernameVisible(false)
+    dataUsername.current!.value == "" 
+    ? setErrorUsernameVisible(true)
+    // jika "txt_username" diisi
+    : setErrorUsernameVisible(false)
 
     // jika "txt_password" tidak diisi
-    dataPassword.current!.value == "" ?  
-    setErrorPasswordVisible(true) :
-    setErrorPasswordVisible(false)
+    dataPassword.current!.value == ""
+    ? setErrorPasswordVisible(true)
+    // jika "txt_password" diisi
+    : setErrorPasswordVisible(false)
   }
 
   return (
