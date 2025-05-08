@@ -13,6 +13,9 @@ export default function AddUser() {
   const errorMessageNama = useRef<HTMLParagraphElement>(null)
   const errorMessageUsername = useRef<HTMLParagraphElement>(null)
   const errorMessagePassword = useRef<HTMLParagraphElement>(null)
+  const dataNama = useRef<HTMLInputElement>(null)
+  const dataUsername = useRef<HTMLInputElement>(null)
+  const dataPassword = useRef<HTMLInputElement>(null)
 
   // buat hook "useEffect" untuk respon pesan error
   useEffect(() => {
@@ -42,34 +45,35 @@ export default function AddUser() {
       {/* field nama user */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Nama User</legend>
-        <input type="text" className="input" placeholder="Isi Nama User" />
-        {errorNamaVisible &&
+        <input ref={dataNama} type="text" className="input" placeholder="Isi Nama User" />
+        {errorNamaVisible && (
           <p ref={errorMessageNama} className="label text-red-600"></p>
-        }
+        )}
       </fieldset>
 
       {/* field username */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Username User</legend>
-        <input type="text" className="input" placeholder="Isi Username User" />
-        {errorUsernameVisible &&
+        <input ref={dataUsername} type="text" className="input" placeholder="Isi Username User" />
+        {errorUsernameVisible && (
           <p ref={errorMessageUsername} className="label text-red-600"></p>
-        }
+        )}
       </fieldset>
 
       {/* field password */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Password User</legend>
-        <input type="password" className="input" placeholder="Isi Password User" />
-        {errorPasswordVisible &&
+        <input ref={dataPassword} type="password" className="input" placeholder="Isi Password User" />
+        {errorPasswordVisible && (
           <p ref={errorMessagePassword} className="label text-red-600"></p>
-        }
+        )}
       </fieldset>
       </section>
 
       <section className='mt-5'>
       {/* tombol simpan data */}
       <button className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
+
       {/* tombol simpan data */}
       <button onClick={setReload} className="btn btn-default ml-2 w-30">Batal</button>
       </section>
