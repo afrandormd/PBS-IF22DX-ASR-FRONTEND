@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 export default function AddUser() {
   // buat hook "useState" untuk show/hide pesan error
 
-  const [errorNamaVisible, setErrorNamaVisible] = useState(true);
+  const [errorNamaVisible, setErrorNamaVisible] = useState(false);
   const [errorUsernameVisible, setErrorUsernameVisible] = useState(false);
   const [errorPasswordVisible, setErrorPasswordVisible] = useState(false);
 
@@ -47,7 +47,7 @@ export default function AddUser() {
         <legend className="fieldset-legend">Username User</legend>
         <input type="text" className="input" placeholder="Isi Username User" />
         {errorUsernameVisible &&
-          <p className="label text-red-600">Optional</p>
+          <p ref={errorMessageUsername} className="label text-red-600"></p>
         }
       </fieldset>
 
@@ -56,7 +56,7 @@ export default function AddUser() {
         <legend className="fieldset-legend">Password User</legend>
         <input type="password" className="input" placeholder="Isi Password User" />
         {errorPasswordVisible &&
-          <p className="label text-red-600">Optional</p>
+          <p ref={errorMessagePassword} className="label text-red-600"></p>
         }
       </fieldset>
       </section>
