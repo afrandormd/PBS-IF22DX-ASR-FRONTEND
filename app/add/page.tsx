@@ -4,17 +4,25 @@ import React, { useEffect, useRef, useState } from "react";
 export default function AddUser() {
   // buat hook "useState" untuk show/hide pesan error
 
-  const [errorNamaVisible, setErrorNamaVisible] = useState(false);
+  const [errorNamaVisible, setErrorNamaVisible] = useState(true);
   const [errorUsernameVisible, setErrorUsernameVisible] = useState(false);
   const [errorPasswordVisible, setErrorPasswordVisible] = useState(false);
 
   // buat hook "useRef" untuk isi pesan error
   const errorMessageNama = useRef<HTMLParagraphElement>(null)
+  const errorMessageUsername = useRef<HTMLParagraphElement>(null)
+  const errorMessagePassword = useRef<HTMLParagraphElement>(null)
 
   // buat hook "useEffect" untuk respon pesan error
   useEffect(() => {
   if (errorMessageNama.current) {
     errorMessageNama.current.innerHTML = "Nama User Harus Diisi!"
+    }
+  if (errorMessageUsername.current) {
+    errorMessageUsername.current.innerHTML = "Username User Harus Diisi!"
+    }
+  if (errorMessagePassword.current) {
+    errorMessagePassword.current.innerHTML = "Password User Harus Diisi!"
     }
   }, [errorNamaVisible, errorUsernameVisible, errorPasswordVisible])
 
