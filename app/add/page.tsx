@@ -1,10 +1,10 @@
 'use client'
+import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function AddUser() {
   // buat hook "useState" untuk show/hide pesan error
-
   const [errorNamaVisible, setErrorNamaVisible] = useState(false);
   const [errorUsernameVisible, setErrorUsernameVisible] = useState(false);
   const [errorPasswordVisible, setErrorPasswordVisible] = useState(false);
@@ -54,6 +54,20 @@ export default function AddUser() {
     ? setErrorPasswordVisible(true)
     // jika "txt_password" diisi
     : setErrorPasswordVisible(false)
+
+    // jika seluruh data terisi
+    if(dataNama.current!.value != "" &&
+      dataUsername.current!.value != "" &&
+      dataPassword.current!.value != ""
+    )
+    {
+    // simpan data (kirim ke service POST)
+    axios.post("http://localhost:3001/api/user", {
+        nama_value: dataNama.current!.value,
+        username_value: dataUsername.current!.value,
+        password_value: dataPassword.current!.value,
+      })
+    }
   }
 
   return (
