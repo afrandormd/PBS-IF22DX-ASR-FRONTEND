@@ -1,4 +1,5 @@
 'use client'
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function AddUser() {
@@ -65,9 +66,8 @@ export default function AddUser() {
       {/* tombol simpan data */}
       <button className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
       {/* tombol simpan data */}
-      <button className="btn btn-default ml-2 w-30">Batal</button>
+      <Link href={"/add"} className="btn btn-default ml-2 w-30">Batal</Link>
       </section>
     </div>
   )
 }
-
