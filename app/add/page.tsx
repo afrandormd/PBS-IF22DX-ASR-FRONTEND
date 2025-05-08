@@ -35,7 +35,23 @@ export default function AddUser() {
     location.href = "/add"
   }
 
+  // buat fungsi untuk simpan data
+  const setSave = () => {
+    // jika "txt_nama" tidak diisi
+    dataNama.current!.value == "" ?  
+    setErrorNamaVisible(true) :
+    setErrorNamaVisible(false)
 
+    // jika "txt_username" tidak diisi
+    dataUsername.current!.value == "" ?  
+    setErrorUsernameVisible(true) :
+    setErrorUsernameVisible(false)
+
+    // jika "txt_password" tidak diisi
+    dataPassword.current!.value == "" ?  
+    setErrorPasswordVisible(true) :
+    setErrorPasswordVisible(false)
+  }
 
   return (
     <div>
@@ -72,7 +88,7 @@ export default function AddUser() {
 
       <section className='mt-5'>
       {/* tombol simpan data */}
-      <button className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
+      <button onClick={setSave} className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
 
       {/* tombol simpan data */}
       <button onClick={setReload} className="btn btn-default ml-2 w-30">Batal</button>
