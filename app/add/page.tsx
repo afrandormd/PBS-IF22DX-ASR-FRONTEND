@@ -27,6 +27,11 @@ export default function AddUser() {
     }
   }, [errorNamaVisible, errorUsernameVisible, errorPasswordVisible])
 
+  // buat fungsi untuk reload
+  const setReload = () => {
+    location.href = "/add"
+  }
+
 
 
   return (
@@ -66,7 +71,7 @@ export default function AddUser() {
       {/* tombol simpan data */}
       <button className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
       {/* tombol simpan data */}
-      <Link href={"/add"} className="btn btn-default ml-2 w-30">Batal</Link>
+      <button className="btn btn-default ml-2 w-30">Batal</button>
       </section>
     </div>
   )
