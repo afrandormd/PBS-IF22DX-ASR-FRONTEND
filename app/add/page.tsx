@@ -71,7 +71,7 @@ export default function AddUser() {
       {/* tombol simpan data */}
       <button className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
       {/* tombol simpan data */}
-      <button className="btn btn-default ml-2 w-30">Batal</button>
+      <button onClick={setReload} className="btn btn-default ml-2 w-30">Batal</button>
       </section>
     </div>
   )
