@@ -67,6 +67,14 @@ export default function AddUser() {
         username_value: dataUsername.current!.value,
         password_value: dataPassword.current!.value,
       })
+      .then(function (response) {
+        alert(response.data.metaData.message);
+      })
+      .catch(function (error) {
+        // if (error.response?.status === 409) {
+          alert(error.message);
+        // }
+      });
     }
   }
 
