@@ -67,11 +67,11 @@ export default function AddUser() {
         username_value: dataUsername.current!.value,
         password_value: dataPassword.current!.value,
       })
-      .then(function (response) {
+      .then((response) => {
         alert(response.data.metaData.message);
         setReload();
       })
-      .catch(function (error) {
+      .catch((error) => {
         // if (error.response?.status === 409) {
           alert(error.message);
         // }
