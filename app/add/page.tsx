@@ -69,6 +69,7 @@ export default function AddUser() {
       })
       .then(function (response) {
         alert(response.data.metaData.message);
+        setReload();
       })
       .catch(function (error) {
         // if (error.response?.status === 409) {
