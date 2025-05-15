@@ -83,6 +83,7 @@ export default function AddUser() {
     <div>
       {/* judul halaman  */}
       <title>Tambah Data User</title>
+
       <section>
       {/* field nama user */}
       <fieldset className="fieldset">

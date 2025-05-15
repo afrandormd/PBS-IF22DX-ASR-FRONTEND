@@ -95,7 +95,8 @@ export default function Home() {
             data?.data_user.map((item: any) => (
             <tr className="hover:bg-gray-100" key={item.id}>
               <td className="text-center">
-                <Link href={"/"}>
+                {/* Tombol Ubah Data */}
+                <Link href={`/edit/${item.id}`}>
                   <FontAwesomeIcon icon={faPencil} title="Ubah Data" className={styles["frame-button-edit"]} />
                 </Link>
 
