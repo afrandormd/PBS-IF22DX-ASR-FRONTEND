@@ -14,7 +14,7 @@ export default async function EditUser({params}: {params: {id: string}}) {
     // const id = await params.id
     setIdValue(await params.id)
 
-    // return idValue
+    return idValue
 
   }
 
