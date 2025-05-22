@@ -1,28 +1,53 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useParams, useRouter } from 'next/navigation'
+import React, { useEffect, useRef, useState } from 'react'
 
-export default async function EditUser({params}: {params: {id: string}}) {
+export default function EditUser({params}: {params: {id: string}}) {
   // buat variabel untuk response "slug"
   // const params = await props.params;
+  params = useParams()
 
   // buat hook "useState" untuk id
-  const [idValue, setIdValue] = useState("")
+  // const [idValue, setIdValue] = useState("")
   
-  // buat fungsi untuk ambil data
-  const getDetailData = async () => {
-    // alert(await params.id)
-    // const id = await params.id
-    setIdValue(await params.id)
+  // buat variabel router
+  const router = useRouter() 
 
-    return idValue
+  // buat hook "useRef" untuk detail data
+  const dataNama = useRef<HTMLInputElement>(null)
+  const dataUsername = useRef<HTMLInputElement>(null)
+  const dataPassword = useRef<HTMLInputElement>(null)
+
+  // buat fungsi untuk ambil data
+  const getDetailData = async (id: string) => {
+    // ambil service "detail"
+    await axios.get(`http://localhost:3001/api/user/${id}`)
+    .then((response) => {
+      // kondisi jika status 404
+      if(response.data.metaData.status == 404){
+        // alihkan ke halaman 404
+        router.push("/404")
+      // kondisi jika status 400
+      } else if(response.data.metaData.status == 400){
+        //alihkan ke halaman 400
+        router.push("/400")
+      // kondisi jika status 200
+      } else {
+        dataNama.current!.value = response.data.data_user.nama
+        dataUsername.current!.value = response.data.data_user.username
+        dataPassword.current!.value = response.data.data_user.password
+        }
+    })
+
 
   }
 
   // panggil fungsi "getDetailData"
   // getDetailData()
   useEffect(() => {
-    getDetailData()
-    alert(idValue)
+    getDetailData(params.id)
+    // alert(idValue)
   }, [])
   
 
@@ -36,25 +61,25 @@ export default async function EditUser({params}: {params: {id: string}}) {
       {/* field nama user */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Nama User</legend>
-        <input type="text" className="input" placeholder="Isi Nama User" />
+        <input ref={dataNama} type="text" className="input" placeholder="Isi Nama User" />
       </fieldset>
 
       {/* field username */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Username User</legend>
-        <input type="text" className="input" placeholder="Isi Username User" />
+        <input ref={dataUsername} type="text" className="input" placeholder="Isi Username User" />
       </fieldset>
 
       {/* field password */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Password User</legend>
-        <input type="password" className="input" placeholder="Isi Password User" />
+        <input ref={dataPassword} type="password" className="input" placeholder="Isi Password User" />
       </fieldset>
       </section>
 
       <section className='mt-5'>
       {/* tombol simpan data */}
-      <button className="btn btn-success text-white mr-2 w-30">Simpan Data</button>
+      <button className="btn btn-success text-white mr-2 w-30">Ubah</button>
 
       {/* tombol simpan data */}
       <button className="btn btn-default ml-2 w-30">Batal</button>
