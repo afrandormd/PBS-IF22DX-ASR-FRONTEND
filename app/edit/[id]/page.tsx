@@ -11,6 +11,17 @@ export default function EditUser({params}: {params: {id: string}}) {
   // buat hook "useState" untuk id
   // const [idValue, setIdValue] = useState("")
   
+  // buat hook "useState" untuk show/hide pesan error
+  const [errorNamaVisible, setErrorNamaVisible] = useState(false);
+  const [errorUsernameVisible, setErrorUsernameVisible] = useState(false);
+  const [errorPasswordVisible, setErrorPasswordVisible] = useState(false);
+
+  // buat hook "useRef" untuk isi pesan error
+  const errorMessageNama = useRef<HTMLParagraphElement>(null)
+  const errorMessageUsername = useRef<HTMLParagraphElement>(null)
+  const errorMessagePassword = useRef<HTMLParagraphElement>(null)
+
+
   // buat variabel router
   const router = useRouter() 
 
@@ -62,18 +73,27 @@ export default function EditUser({params}: {params: {id: string}}) {
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Nama User</legend>
         <input ref={dataNama} type="text" className="input" placeholder="Isi Nama User" />
+        {errorNamaVisible && (
+          <p ref={errorMessageNama} className="label text-red-600"></p>
+        )}
       </fieldset>
 
       {/* field username */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Username User</legend>
         <input ref={dataUsername} type="text" className="input" placeholder="Isi Username User" />
+        {errorUsernameVisible && (
+          <p ref={errorMessageUsername} className="label text-red-600"></p>
+        )}
       </fieldset>
 
       {/* field password */}
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Password User</legend>
         <input ref={dataPassword} type="password" className="input" placeholder="Isi Password User" />
+        {errorPasswordVisible && (
+          <p ref={errorMessagePassword} className="label text-red-600"></p>
+        )}
       </fieldset>
       </section>
 
