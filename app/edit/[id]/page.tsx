@@ -51,15 +51,62 @@ export default function EditUser({params}: {params: {id: string}}) {
         }
     })
 
-
   }
+
+  // buat fungsi untuk ubah data
+  const setUpdateData = () => {
+    // jika "txt_nama" tidak diisi
+    dataNama.current!.value == ""   
+    ? [setErrorNamaVisible(true), dataNama.current!.value = ""]
+    // jika "txt_nama" diisi
+    : setErrorNamaVisible(false)
+
+    // jika "txt_username" tidak diisi
+    dataUsername.current!.value == "" 
+    ? setErrorUsernameVisible(true)
+    // jika "txt_username" diisi
+    : setErrorUsernameVisible(false)
+
+    // jika "txt_password" tidak diisi
+    dataPassword.current!.value == ""
+    ? setErrorPasswordVisible(true)
+    // jika "txt_password" diisi
+    : setErrorPasswordVisible(false)
+
+    // jika seluruh data terisi
+    if(dataNama.current!.value != "" &&
+      dataUsername.current!.value != "" &&
+      dataPassword.current!.value != ""
+    ) {
+    axios.put(`http://localhost:3001/api/user/${params.id}`, {
+        nama_value: dataNama.current!.value,
+        username_value: dataUsername.current!.value,
+        password_value: dataPassword.current!.value,
+      })
+      .then((response) => {
+        alert(response.data.metaData.message);
+        // setReload();
+      });
+    }
+  };
 
   // panggil fungsi "getDetailData"
   // getDetailData()
+
+  // buat hook "useEffect" untuk respon pesan error
   useEffect(() => {
     getDetailData(params.id)
-    // alert(idValue)
-  }, [])
+
+    if (errorMessageNama.current) {
+      errorMessageNama.current.innerHTML = "Nama User Harus Diisi!"
+      }
+    if (errorMessageUsername.current) {
+      errorMessageUsername.current.innerHTML = "Username User Harus Diisi!"
+      }
+    if (errorMessagePassword.current) {
+      errorMessagePassword.current.innerHTML = "Password User Harus Diisi!"
+      }
+  }, [errorNamaVisible, errorUsernameVisible, errorPasswordVisible])
   
 
 
@@ -99,7 +146,7 @@ export default function EditUser({params}: {params: {id: string}}) {
 
       <section className='mt-5'>
       {/* tombol simpan data */}
-      <button className="btn btn-success text-white mr-2 w-30">Ubah</button>
+      <button className="btn btn-success text-white mr-2 w-30" onClick={setUpdateData}>Ubah</button>
 
       {/* tombol simpan data */}
       <button className="btn btn-default ml-2 w-30">Batal</button>
