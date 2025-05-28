@@ -15,11 +15,14 @@ export default function EditUser({params}: {params: {id: string}}) {
   const [errorNamaVisible, setErrorNamaVisible] = useState(false);
   const [errorUsernameVisible, setErrorUsernameVisible] = useState(false);
   const [errorPasswordVisible, setErrorPasswordVisible] = useState(false);
+  const [errorMessageNama, setErrorMessageNama] = useState("");
+  const [errorMessageUsername, setErrorMessageUsername] = useState("");
+  const [errorMessagePassword, setErrorMessagePassword] = useState("");
 
   // buat hook "useRef" untuk isi pesan error
-  const errorMessageNama = useRef<HTMLParagraphElement>(null)
-  const errorMessageUsername = useRef<HTMLParagraphElement>(null)
-  const errorMessagePassword = useRef<HTMLParagraphElement>(null)
+  // const dataNama = useRef<HTMLParagraphElement>(null)
+  // const dataUsername = useRef<HTMLParagraphElement>(null)
+  // const dataPassword = useRef<HTMLParagraphElement>(null)
 
 
   // buat variabel router
@@ -47,7 +50,8 @@ export default function EditUser({params}: {params: {id: string}}) {
       } else {
         dataNama.current!.value = response.data.data_user.nama
         dataUsername.current!.value = response.data.data_user.username
-        dataPassword.current!.value = response.data.data_user.password
+        // dataPassword.current!.value = response.data.data_user.password 
+        dataPassword.current!.value = "*****" 
         }
     })
 
@@ -57,7 +61,8 @@ export default function EditUser({params}: {params: {id: string}}) {
   const setUpdateData = () => {
     // jika "txt_nama" tidak diisi
     dataNama.current!.value == ""   
-    ? [setErrorNamaVisible(true), dataNama.current!.value = ""]
+    // ? dataNama.current!.value = "")"Oke")]
+    ? setErrorNamaVisible(true)
     // jika "txt_nama" diisi
     : setErrorNamaVisible(false)
 
@@ -97,16 +102,19 @@ export default function EditUser({params}: {params: {id: string}}) {
   useEffect(() => {
     getDetailData(params.id)
 
-    if (errorMessageNama.current) {
-      errorMessageNama.current.innerHTML = "Nama User Harus Diisi!"
-      }
-    if (errorMessageUsername.current) {
-      errorMessageUsername.current.innerHTML = "Username User Harus Diisi!"
-      }
-    if (errorMessagePassword.current) {
-      errorMessagePassword.current.innerHTML = "Password User Harus Diisi!"
-      }
-  }, [errorNamaVisible, errorUsernameVisible, errorPasswordVisible])
+    // if (errorMessageNama.current) {
+    //   errorMessageNama.current.innerHTML = "Nama User Harus Diisi!"
+    //   }
+    // if (errorMessageUsername.current) {
+    //   errorMessageUsername.current.innerHTML = "Username User Harus Diisi!"
+    //   }
+    // if (errorMessagePassword.current) {
+    //   errorMessagePassword.current.innerHTML = "Password User Harus Diisi!"
+    //   }
+    setErrorMessageNama("Nama User Harus Diisi!")
+    setErrorMessageUsername("Username User Harus Diisi!")
+    setErrorMessagePassword("Password User Harus Diisi!")
+  }, [])
   
 
 
@@ -121,7 +129,7 @@ export default function EditUser({params}: {params: {id: string}}) {
         <legend className="fieldset-legend">Nama User</legend>
         <input ref={dataNama} type="text" className="input" placeholder="Isi Nama User" />
         {errorNamaVisible && (
-          <p ref={errorMessageNama} className="label text-red-600"></p>
+          <p className="label text-red-600">{errorMessageUsername}</p>
         )}
       </fieldset>
 
@@ -130,7 +138,7 @@ export default function EditUser({params}: {params: {id: string}}) {
         <legend className="fieldset-legend">Username User</legend>
         <input ref={dataUsername} type="text" className="input" placeholder="Isi Username User" />
         {errorUsernameVisible && (
-          <p ref={errorMessageUsername} className="label text-red-600"></p>
+          <p className="label text-red-600">{errorMessageNama}</p>
         )}
       </fieldset>
 
@@ -139,7 +147,7 @@ export default function EditUser({params}: {params: {id: string}}) {
         <legend className="fieldset-legend">Password User</legend>
         <input ref={dataPassword} type="password" className="input" placeholder="Isi Password User" />
         {errorPasswordVisible && (
-          <p ref={errorMessagePassword} className="label text-red-600"></p>
+          <p  className="label text-red-600">{errorMessagePassword}</p>
         )}
       </fieldset>
       </section>
